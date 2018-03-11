@@ -6,8 +6,8 @@ target 'TopGames' do
   use_frameworks!
 
   # Pods for TopGames
-  pod 'Reachability'
-  pod 'Alamofire'
+  pod 'Reachability' , '~> 3.2'
+  pod 'Alamofire', '~> 4.7'
   
   target 'TopGamesTests' do
     inherit! :search_paths

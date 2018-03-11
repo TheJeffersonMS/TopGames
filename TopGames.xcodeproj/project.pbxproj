@@ -17,8 +17,6 @@
 		2ECB46D92028BB170078672E /* TGGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB46D82028BB170078672E /* TGGame.swift */; };
 		2ECB46DD2028BDC70078672E /* TGStringExtesion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB46DC2028BDC70078672E /* TGStringExtesion.swift */; };
 		2ECB46DF202A82E90078672E /* TGGameDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB46DE202A82E90078672E /* TGGameDetailViewController.swift */; };
-		2ECB46E1202A8ED20078672E /* TGErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB46E0202A8ED20078672E /* TGErrorViewController.swift */; };
-		2ECB46E3202A96430078672E /* TGTypeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECB46E2202A96430078672E /* TGTypeError.swift */; };
 		2EE9ACF2202788E500C4C4FA /* TGTopGamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE9ACF1202788E500C4C4FA /* TGTopGamesViewController.swift */; };
 		2EE9ACF52027906F00C4C4FA /* TGGameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE9ACF42027906F00C4C4FA /* TGGameCollectionViewCell.swift */; };
 		3C7D7416392C32A30C631507 /* Pods_TopGamesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D055CCFD436C9CB687126DD /* Pods_TopGamesTests.framework */; };
@@ -49,8 +47,6 @@
 		2ECB46D82028BB170078672E /* TGGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TGGame.swift; sourceTree = "<group>"; };
 		2ECB46DC2028BDC70078672E /* TGStringExtesion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TGStringExtesion.swift; sourceTree = "<group>"; };
 		2ECB46DE202A82E90078672E /* TGGameDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TGGameDetailViewController.swift; sourceTree = "<group>"; };
-		2ECB46E0202A8ED20078672E /* TGErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TGErrorViewController.swift; sourceTree = "<group>"; };
-		2ECB46E2202A96430078672E /* TGTypeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TGTypeError.swift; sourceTree = "<group>"; };
 		2EE9ACF1202788E500C4C4FA /* TGTopGamesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TGTopGamesViewController.swift; sourceTree = "<group>"; };
 		2EE9ACF42027906F00C4C4FA /* TGGameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TGGameCollectionViewCell.swift; sourceTree = "<group>"; };
 		4654B933443AB51F777EDA2D /* Pods-TopGames.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TopGames.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TopGames/Pods-TopGames.debug.xcconfig"; sourceTree = "<group>"; };
@@ -154,7 +150,6 @@
 			isa = PBXGroup;
 			children = (
 				2ECB46D82028BB170078672E /* TGGame.swift */,
-				2ECB46E2202A96430078672E /* TGTypeError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -172,7 +167,6 @@
 			children = (
 				2EE9ACF1202788E500C4C4FA /* TGTopGamesViewController.swift */,
 				2ECB46DE202A82E90078672E /* TGGameDetailViewController.swift */,
-				2ECB46E0202A8ED20078672E /* TGErrorViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -423,10 +417,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2ECB46E1202A8ED20078672E /* TGErrorViewController.swift in Sources */,
 				2ECB46D92028BB170078672E /* TGGame.swift in Sources */,
 				2EABF30D202773C5008B38F7 /* AppDelegate.swift in Sources */,
-				2ECB46E3202A96430078672E /* TGTypeError.swift in Sources */,
 				2ECB46DF202A82E90078672E /* TGGameDetailViewController.swift in Sources */,
 				2EE9ACF2202788E500C4C4FA /* TGTopGamesViewController.swift in Sources */,
 				2ECB46DD2028BDC70078672E /* TGStringExtesion.swift in Sources */,

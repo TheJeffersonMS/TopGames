@@ -13,6 +13,7 @@ import Alamofire
 class TGTopGamesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource  {
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var errorView: UIView!
     
     let activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     let container: UIView = UIView()
@@ -24,20 +25,15 @@ class TGTopGamesViewController: UIViewController, UICollectionViewDelegate, UICo
         
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-        
-        if AppDelegate.hasInternetConnection {
-            self.showActivityIndicator()
-            self.searchGames()
-            
-        } else {
-            
-            self.performSegue(withIdentifier: "error", sender: TGErrorType.internet)
-        }
-
+    
     }
+ 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.searchGames()
+        
+        self.errorView.isHidden = true
+        
+        self.fetchGames()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -63,6 +59,12 @@ class TGTopGamesViewController: UIViewController, UICollectionViewDelegate, UICo
         
     }
     
+    @IBAction func didTapRelaod(_ sender: Any) {
+        
+         self.fetchGames()
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "detail" {
@@ -71,14 +73,6 @@ class TGTopGamesViewController: UIViewController, UICollectionViewDelegate, UICo
                 gameDetailVC.game = cell.game
             }
         }
-        
-        if segue.identifier == "error" {
-            if let errorVC = segue.destination as? TGErrorViewController,
-                let type = sender as? TGErrorType {
-                    errorVC.type = type
-            }
-        }
-        
     }
     
     
@@ -114,36 +108,62 @@ class TGTopGamesViewController: UIViewController, UICollectionViewDelegate, UICo
         container.removeFromSuperview()
     }
     
-    func searchGames() {
+    func fetchGames() {
         
-        let url = "https://api.twitch.tv/kraken/games/top?client_id=ucy16b5hc41xs87tja328ypcvrfphs&limit=10"
-        Alamofire.request(url).validate().responseJSON { response in
-            print("Request: \(String(describing: response.request))")   // original url request
-            print("Response: \(String(describing: response.response))") // http url response
-            print("Result: \(response.result)")                         // response serialization result
-
-            switch response.result {
-            case .success:
-                print("Validation Successful")
-                if let json = response.result.value {
-                    print("JSON: \(json)")
-                    print("Parse: Start!")
-                    let gamesDic: Dictionary = json as! Dictionary<String, Any>
-                    let tops = gamesDic["top"] as! [[String: AnyObject]]
-                    for gameArray in tops {
+        self.errorView.isHidden = true
+        
+        if AppDelegate.hasInternetConnection {
+            self.showActivityIndicator()
+            games = [TGGame]()
+            
+            let url = "https://api.twitch.tv/kraken/games/top?client_id=ucy16b5hc41xs87tja328ypcvrfphs&limit=10"
+            Alamofire.request(url).validate().responseJSON { response in
+                print("Request: \(String(describing: response.request))")   // original url request
+                print("Response: \(String(describing: response.response))") // http url response
+                print("Result: \(response.result)")                         // response serialization result
+                
+                switch response.result {
+                case .success:
+                    print("Validation Successful")
+                    if let json = response.result.value {
+                        print("JSON: \(json)")
+                        print("Parse: Start!")
+                        let gamesDic: Dictionary = json as! Dictionary<String, Any>
+                        let tops = gamesDic["top"] as! [[String: AnyObject]]
                         
-                        if let game = TGGame.parse(data: gameArray) {
-                            self.games.append(game)
+                        for gameArray in tops {
+                            
+                            if let game = TGGame.parse(data: gameArray) {
+                                self.games.append(game)
+                            }
+                        }
+                        
+                        print("Parse: Complete!")
+
+                        if self.games.count > 0 {
+                            DispatchQueue.main.async {
+                                
+                                self.collectionView.reloadData()
+                                self.hideActivityIndicator()
+                                
+                            }
+                        } else {
+                            
+                            print("games list empty!")
+                            self.errorView.isHidden = false
+                            
                         }
                     }
-                    print("Parse: Complete!")
-                    self.collectionView.reloadData()
+                case .failure(let error):
+                    print(error)
                     self.hideActivityIndicator()
+                    self.errorView.isHidden = false
                 }
-            case .failure(let error):
-               print(error)
-               self.performSegue(withIdentifier: "error", sender: TGErrorType.generic)
             }
+        } else {
+            
+            self.hideActivityIndicator()
+            self.errorView.isHidden = false
         }
     }
 }
